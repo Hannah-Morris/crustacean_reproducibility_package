@@ -14,5 +14,8 @@ This folder contains the scripts and processed files used to generate the main a
 - sra_download_example.sh
 - lotus2_perameters.txt
 
+## Data access:
+- inclusion_list.sh
+
 ## Nb:
 These scripts are intended as a clean reproducibility package derived from the main working analysis pipeline.
