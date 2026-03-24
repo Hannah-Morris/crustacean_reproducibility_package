@@ -1,0 +1,52 @@
+LotuS2 processing details
+=========================
+
+Software environment
+--------------------
+Anaconda3 version used:
+Anaconda3-2025.06-0-Linux-x86_64.sh
+
+Conda environment:
+lotus2
+
+Installation
+------------
+git clone https://github.com/hildebra/lotus2.git
+
+conda config --add channels bioconda
+conda config --add channels conda-forge
+conda create -n lotus2 lotus2
+
+Environment activation
+----------------------
+source ~/anaconda3/etc/profile.d/conda.sh
+conda activate lotus2
+
+Raw read download
+-----------------
+Raw reads were downloaded from the NCBI Sequence Read Archive (SRA) using prefetch and fasterq-dump.
+
+Example command:
+esearch -db sra -query "PRJNAEXAMPLE" | efetch -format runinfo | cut -d ',' -f1 | tail -n +2 | xargs -I {} sh -c 'prefetch {} && fasterq-dump --split-files --progress --outdir /home/USER/PRJNAEXAMPLE {}'
+
+Mapping file generation
+-----------------------
+Mapping files were generated using autoMap.pl where possible.
+
+Examples:
+./autoMap.pl /Users/hm/PRJNAEXAMPLE/ shrimpmap_EXAMPLE.tx 2
+
+LotuS2 processing parameters
+----------------------------
+Example command used for BioProject processing:
+
+lotus2 -i /home/user/PRJNAEXAMPLE/ \
+  -o PRJNAEXAMPLE/EXAMPLE_out/ \
+  -m shrimpmap_EXAMPLE.txt \
+  -CL dada2 \
+  -refDB KSGP \
+  -taxAligner blast \
+  -t 16
+
+Key parameters
+------
